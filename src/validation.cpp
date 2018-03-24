@@ -1107,6 +1107,22 @@ bool ReadBlockFromDisk(CBlock& block, const CDiskBlockPos& pos, const Consensus:
     }
 
     // Check the header
+    /*
+    bool fNegative;
+    bool fOverflow;
+    arith_uint256 bnTarget;
+    bnTarget.SetCompact(block.nBits, &fNegative, &fOverflow);
+    error("fNegative: %d, fOverflow: %d, bnTarget == 0: %d, bnTarget: %s, block.nBits: %u, consensusParams.powLimit: %s", fNegative, fOverflow, bnTarget == 0, bnTarget.GetHex(), block.nBits, UintToArith256(consensusParams.powLimit).GetHex());
+    error("UintToArith256(hash): %s", UintToArith256(block.GetHash()).GetHex());
+
+    while (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams)) {
+      ++block.nTime;
+    }
+    error("block.nTime found: %u", block.nTime);
+    error("UintToArith256(hash): %s", UintToArith256(block.GetHash()).GetHex());
+    return false;
+    */
+
     if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
         return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
 
